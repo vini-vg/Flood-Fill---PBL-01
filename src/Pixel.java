@@ -1,8 +1,8 @@
 public class Pixel{
 
-    Integer x, y ;
+    int x, y ;
 
-    Pixel(Integer x, Integer y){
+    Pixel(int x, int y){
         this.x = x;
         this.y = y;
     }
