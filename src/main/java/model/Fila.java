@@ -1,42 +1,46 @@
-class Fila {
-    private Node frente, tras;
+package main.java.model;
 
-    private class Node {
+public class Fila implements Estrutura<Pixel> {
+    private Node frente;
+    private Node tras;
+
+    private static class Node {
         Pixel pixel;
         Node proximo;
 
-        Node(Pixel p) {
-            this.pixel = p;
-            this.proximo = null;
+        Node(Pixel pixel) {
+            this.pixel = pixel;
         }
     }
 
-
-
-    public void enqueue(Pixel p) {
-        Node novo = new Node(p);
-        if (tras != null) {
-            tras.proximo = novo;
-        }
-        tras = novo;
-        if (frente == null) {
-            frente = novo;
+    @Override
+    public void adicionar(Pixel pixel) {
+        Node novoNode = new Node(pixel);
+        if (tras == null) {
+            frente = tras = novoNode;
+        } else {
+            tras.proximo = novoNode;
+            tras = novoNode;
         }
     }
 
-    public Pixel dequeue() {
+    @Override
+    public Pixel remover() {
         if (frente == null) return null;
-        Pixel p = frente.pixel;
-        frente = frente.proximo ;
+        Pixel pixel = frente.pixel;
+        frente = frente.proximo;
         if (frente == null) {
             tras = null;
         }
-        return p;
+
+        return pixel;
     }
 
-
-    public boolean isEmpty() {
-
-        return frente == null ;
+    @Override
+    public boolean estaVazia() {
+        return frente == null;
     }
+    public void enqueue(Pixel p) { adicionar(p); }
+    public Pixel dequeue() { return remover(); }
+    public boolean isEmpty() { return estaVazia(); }
 }
